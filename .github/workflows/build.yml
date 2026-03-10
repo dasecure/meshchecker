@@ -1,0 +1,113 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: macos-latest
+            target: macos
+            artifact: meshcheck-macos
+          - os: macos-latest
+            target: macos-arm64
+            artifact: meshcheck-macos-arm64
+          - os: windows-latest
+            target: windows
+            artifact: meshcheck-windows.exe
+          - os: ubuntu-latest
+            target: linux
+            artifact: meshcheck-linux
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller rich speedtest-cli
+
+      - name: Build executable (macOS ARM64)
+        if: matrix.target == 'macos-arm64'
+        run: |
+          pyinstaller --onefile --name meshcheck --target-arch arm64 src/meshcheck/main.py
+          mv dist/meshcheck dist/${{ matrix.artifact }}
+
+      - name: Build executable (macOS Intel)
+        if: matrix.target == 'macos'
+        run: |
+          pyinstaller --onefile --name meshcheck --target-arch x86_64 src/meshcheck/main.py
+          mv dist/meshcheck dist/${{ matrix.artifact }}
+
+      - name: Build executable (Windows)
+        if: matrix.target == 'windows'
+        run: |
+          pyinstaller --onefile --name meshcheck src/meshcheck/main.py
+          mv dist/meshcheck.exe dist/${{ matrix.artifact }}
+
+      - name: Build executable (Linux)
+        if: matrix.target == 'linux'
+        run: |
+          pyinstaller --onefile --name meshcheck src/meshcheck/main.py
+          mv dist/meshcheck dist/${{ matrix.artifact }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: dist/${{ matrix.artifact }}
+
+  build-wheel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install build tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install build
+
+      - name: Build wheel
+        run: python -m build
+
+      - name: Upload wheel
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-package
+          path: dist/
+
+  release:
+    needs: [build, build-wheel]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            artifacts/**/*
+          generate_release_notes: true

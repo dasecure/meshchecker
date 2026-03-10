@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "meshcheck"
+version = "1.0.0"
+description = "Mesh Network Performance Checker by DASecure - TUI app to measure and analyze mesh network performance"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.8"
+authors = [
+    {name = "DASecure"}
+]
+keywords = ["mesh", "network", "performance", "wifi", "monitoring", "tui"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Networking",
+    "Topic :: System :: Monitoring",
+]
+dependencies = [
+    "rich>=13.0.0",
+    "speedtest-cli>=2.1.0",
+]
+
+[project.scripts]
+meshcheck = "meshcheck.main:main"
+
+[project.urls]
+Homepage = "https://github.com/dasecure/meshcheck"
+Repository = "https://github.com/dasecure/meshcheck"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+meshcheck = ["py.typed"]
