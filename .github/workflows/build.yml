@@ -41,26 +41,26 @@ jobs:
       - name: Build executable (macOS ARM64)
         if: matrix.target == 'macos-arm64'
         run: |
-          pyinstaller --onefile --name meshcheck --target-arch arm64 src/meshcheck/main.py
-          mv dist/meshcheck dist/${{ matrix.artifact }}
+          pyinstaller --onefile --name meshchecker --target-arch arm64 src/meshcheck/main.py
+          mv dist/meshchecker dist/${{ matrix.artifact }}
 
       - name: Build executable (macOS Intel)
         if: matrix.target == 'macos'
         run: |
-          pyinstaller --onefile --name meshcheck --target-arch x86_64 src/meshcheck/main.py
-          mv dist/meshcheck dist/${{ matrix.artifact }}
+          pyinstaller --onefile --name meshchecker --target-arch x86_64 src/meshcheck/main.py
+          mv dist/meshchecker dist/${{ matrix.artifact }}
 
       - name: Build executable (Windows)
         if: matrix.target == 'windows'
         run: |
-          pyinstaller --onefile --name meshcheck src/meshcheck/main.py
-          mv dist/meshcheck.exe dist/${{ matrix.artifact }}
+          pyinstaller --onefile --name meshchecker src/meshcheck/main.py
+          mv dist/meshchecker.exe dist/${{ matrix.artifact }}
 
       - name: Build executable (Linux)
         if: matrix.target == 'linux'
         run: |
-          pyinstaller --onefile --name meshcheck src/meshcheck/main.py
-          mv dist/meshcheck dist/${{ matrix.artifact }}
+          pyinstaller --onefile --name meshchecker src/meshcheck/main.py
+          mv dist/meshchecker dist/${{ matrix.artifact }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

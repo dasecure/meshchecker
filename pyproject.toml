@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "meshcheck"
+name = "meshchecker"
 version = "1.0.0"
 description = "Mesh Network Performance Checker by DASecure - TUI app to measure and analyze mesh network performance"
 readme = "README.md"
@@ -33,11 +33,11 @@ dependencies = [
 ]
 
 [project.scripts]
-meshcheck = "meshcheck.main:main"
+meshchecker = "meshcheck.main:main"
 
 [project.urls]
-Homepage = "https://github.com/dasecure/meshcheck"
-Repository = "https://github.com/dasecure/meshcheck"
+Homepage = "https://github.com/dasecure/meshchecker"
+Repository = "https://github.com/dasecure/meshchecker"
 
 [tool.setuptools.packages.find]
 where = ["src"]

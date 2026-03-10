@@ -20,63 +20,63 @@ A TUI app to measure and analyze mesh network performance.
 ### pip (Recommended)
 
 ```bash
-pip install meshcheck
-meshcheck
+pip install meshchecker
+meshchecker
 ```
 
 ### pipx
 
 ```bash
-pipx install meshcheck
-meshcheck
+pipx install meshchecker
+meshchecker
 ```
 
 ### From Source
 
 ```bash
-git clone https://github.com/dasecure/meshcheck.git
-cd meshcheck
+git clone https://github.com/dasecure/meshchecker.git
+cd meshchecker
 pip install -e .
-meshcheck
+meshchecker
 ```
 
 ## Quick Start
 
 ```bash
 # Interactive mode (recommended)
-meshcheck
+meshchecker
 
 # Quick setup
-meshcheck --setup
+meshchecker --setup
 
 # Run test immediately
-meshcheck --test
+meshchecker --test
 
 # Include throughput tests (requires iperf3)
-meshcheck --test --throughput
+meshchecker --test --throughput
 ```
 
 ## Adding Nodes
 
 ### Interactive Setup
 ```bash
-meshcheck --setup
+meshchecker --setup
 ```
 
 ### CLI
 ```bash
 # Add a node
-meshcheck --add-node "Living Room" 192.168.1.10
+meshchecker --add-node "Living Room" 192.168.1.10
 
 # Add main router
-meshcheck --add-node "Main Router" 192.168.1.1 --main
+meshchecker --add-node "Main Router" 192.168.1.1 --main
 ```
 
 ## Usage
 
 ### Interactive Menu
 ```
-meshcheck
+meshchecker
 ```
 
 Then choose:
@@ -90,16 +90,16 @@ Then choose:
 
 ```bash
 # Run full test
-meshcheck --test
+meshchecker --test
 
 # Quick test (no internet speed test)
-meshcheck --test --no-internet
+meshchecker --test --no-internet
 
 # With throughput testing (requires iperf3 on nodes)
-meshcheck --test --throughput
+meshchecker --test --throughput
 
 # View history
-meshcheck --history
+meshchecker --history
 ```
 
 ## Throughput Testing
@@ -136,15 +136,15 @@ iperf3 -s
 ## Results Storage
 
 Results are saved to:
-- **macOS/Linux:** `~/.meshcheck/results/`
-- **Windows:** `%USERPROFILE%\.meshcheck\results\`
+- **macOS/Linux:** `~/.meshchecker/results/`
+- **Windows:** `%USERPROFILE%\.meshchecker\results\`
 
 Each test creates a JSON file with full details.
 
 ## Troubleshooting
 
 **"No nodes configured"**
-Run `meshcheck --setup` or add nodes with `--add-node`
+Run `meshchecker --setup` or add nodes with `--add-node`
 
 **"Node unreachable"**
 - Check IP address is correct
@@ -161,6 +161,6 @@ MIT © DASecure
 
 ## Links
 
-- **GitHub:** https://github.com/dasecure/meshcheck
-- **PyPI:** https://pypi.org/project/meshcheck/
+- **GitHub:** https://github.com/dasecure/meshchecker
+- **PyPI:** https://pypi.org/project/meshchecker/
 - **DASecure:** https://github.com/dasecure

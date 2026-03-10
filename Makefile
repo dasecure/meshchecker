@@ -23,4 +23,4 @@ clean:
 
 # Build standalone executable
 exe:
-	pyinstaller --onefile --name meshcheck src/meshcheck/main.py
+	pyinstaller --onefile --name meshchecker src/meshcheck/main.py

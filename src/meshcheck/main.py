@@ -41,7 +41,7 @@ except ImportError:
 console = Console()
 
 # Config file location
-CONFIG_DIR = Path.home() / ".meshcheck"
+CONFIG_DIR = Path.home() / ".meshchecker"
 CONFIG_FILE = CONFIG_DIR / "config.json"
 RESULTS_DIR = CONFIG_DIR / "results"
 
